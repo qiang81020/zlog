@@ -16,9 +16,9 @@
 
 cmake_minimum_required(VERSION 3.12)
 
-message(STATUS "path : ${CMAKE_FIND_ROOT_PATH}")
 project(zlog)
-message(STATUS "path : ${CMAKE_FIND_ROOT_PATH}")
+
+include(GNUInstallDirs)
 
 set(CMAKE_MODULE_PATH ${zlog_SOURCE_DIR}/cmake)
 
@@ -42,10 +42,10 @@ if (WIN32)
 endif ()
 
 cmake_policy(SET CMP0015 NEW)
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${zlog_BINARY_DIR}/lib")
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${zlog_BINARY_DIR}/lib")
+# set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${zlog_BINARY_DIR}/lib")
+# set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${zlog_BINARY_DIR}/lib")
 
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${zlog_BINARY_DIR}/bin")
+# set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${zlog_BINARY_DIR}/bin")
 
 link_directories(${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
 
@@ -64,3 +64,38 @@ if (UNIT_TEST)
     enable_testing()
     add_subdirectory(test)
 endif ()
+
+# ====== add for vcpkg install ======
+
+# 假设 src/CMakeLists.txt 定义了 add_library(zlog ...) 并设置了 install
+# 安装头文件
+install(FILES src/zlog.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+
+# 生成并安装 CMake Config 文件
+include(CMakePackageConfigHelpers)
+configure_package_config_file(
+    "${CMAKE_CURRENT_SOURCE_DIR}/cmake/zlogConfig.cmake.in"
+    "${CMAKE_CURRENT_BINARY_DIR}/zlogConfig.cmake"
+    INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/zlog
+)
+
+install(FILES
+    "${CMAKE_CURRENT_BINARY_DIR}/zlogConfig.cmake"
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/zlog
+)
+
+install(EXPORT zlogTargets
+    FILE zlogTargets.cmake
+    NAMESPACE zlog::
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/zlog
+)
+
+
+# 安装 target 和导出文件
+install(TARGETS zlog
+    EXPORT zlogTargets
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+)
