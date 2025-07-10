@@ -7,6 +7,8 @@ Using printf can work, but can not be redirected or reformatted easily. syslog i
 So I wrote zlog.
 It is faster, safer and more powerful than log4c. So it can be widely used.
 
+**This branch supports vcpkg install**
+
 ## 1. Install
 
 Downloads: <https://github.com/HardySimpson/zlog/releases>
