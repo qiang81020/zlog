@@ -69,7 +69,10 @@ endif ()
 
 # 假设 src/CMakeLists.txt 定义了 add_library(zlog ...) 并设置了 install
 # 安装头文件
-install(FILES src/zlog.h doc/zlog.conf DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+install(FILES src/zlog.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+
+option(INSTALL_CONF_DIR "Installation directory for configuration files" "/etc/zlog")
+install(FILES doc/zlog.conf DESTINATION ${INSTALL_CONF_DIR})
 
 # 生成并安装 CMake Config 文件
 include(CMakePackageConfigHelpers)
