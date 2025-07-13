@@ -72,11 +72,16 @@ endif ()
 install(FILES src/zlog.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
 # 根据 vcpkg 的安装路径动态设置配置文件安装目录
+message(STATUS "VCPKG_INSTALLATION_ROOT: ${VCPKG_INSTALLATION_ROOT}")
+
+# 根据 vcpkg 的安装路径动态设置配置文件安装目录
 if(DEFINED VCPKG_INSTALLATION_ROOT)
     set(INSTALL_CONF_DIR "${VCPKG_INSTALLATION_ROOT}/share/${PROJECT_NAME}/config" CACHE PATH "Installation directory for configuration files")
 else()
     option(INSTALL_CONF_DIR "Installation directory for configuration files" "/etc/zlog")
 endif()
+
+message(STATUS "INSTALL_CONF_DIR: ${INSTALL_CONF_DIR}")
 
 install(FILES doc/zlog.conf DESTINATION ${INSTALL_CONF_DIR})
 
