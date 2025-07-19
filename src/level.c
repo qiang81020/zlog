@@ -159,10 +159,10 @@ zlog_level_t *zlog_level_new(char *line)
         color = "\033[34m";
         break; /* DEBUG */
     case 30:
-        color = "\033[32m";
+        color = "\033[35m";
         break; /* INFO  */
     case 40:
-        color = "\033[35m";
+        color = "\033[32m";
         break; /* NOTICE*/
     case 50:
         color = "\033[33m";
