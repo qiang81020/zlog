@@ -24,6 +24,9 @@ typedef struct zlog_level_s {
 	char str_lowercase[MAXLEN_PATH + 1];
 	size_t str_len;
        	int syslog_level;
+
+	/* 新增：带 ANSI 的颜色字符串 */
+	char str_color[MAXLEN_CFG_LINE + 32];   // 多留点空间给转义码
 } zlog_level_t;
 
 zlog_level_t *zlog_level_new(char *line);
