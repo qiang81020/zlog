@@ -18,14 +18,16 @@
 
 #include "zc_defs.h"
 
-typedef struct zlog_level_s {
-	int int_level;
-	char str_uppercase[MAXLEN_PATH + 1];
-	char str_lowercase[MAXLEN_PATH + 1];
-	size_t str_len;
-       	int syslog_level;
-/* 新增：带 ANSI 的颜色字符串 */
-	char str_color[MAXLEN_CFG_LINE + 32];   // 多留点空间给转义码
+typedef struct zlog_level_s
+{
+    int int_level;
+    char str_uppercase[MAXLEN_PATH + 1];
+    char str_lowercase[MAXLEN_PATH + 1];
+    size_t str_len;
+    int syslog_level;
+    /* 新增：带 ANSI 的颜色字符串 */
+    char color_str_upper[MAXLEN_CFG_LINE + 32]; // 多留点空间给转义码
+    char color_str_lower[MAXLEN_CFG_LINE + 32];
 } zlog_level_t;
 
 zlog_level_t *zlog_level_new(char *line);
