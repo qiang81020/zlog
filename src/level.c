@@ -156,22 +156,22 @@ zlog_level_t *zlog_level_new(char *line)
     switch (a_level->int_level)
     {
     case 20:
-        color = "\033[31m";
+        color = "\033[34m";
         break; /* DEBUG */
     case 40:
         color = "\033[32m";
         break; /* INFO  */
     case 60:
-        color = "\033[33m";
+        color = "\033[30m";
         break; /* NOTICE */
     case 80:
-        color = "\033[34m";
+        color = "\033[33m";
         break; /* WARN  */
     case 100:
-        color = "\033[35m";
+        color = "\033[31m";
         break; /* ERROR */
     case 120:
-        color = "\033[36m";
+        color = "\033[30m";
         break; /* FATAL */
     default:
         color = "\033[0m";
