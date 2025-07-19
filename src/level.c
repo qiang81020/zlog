@@ -144,6 +144,16 @@ zlog_level_t *zlog_level_new(char *line)
 	a_level->str_len = i;
 
 	//zlog_level_profile(a_level, ZC_DEBUG);
+		const char *color = "";
+	switch (a_level->int_level) {
+		case 20: color = "\033[34m"; break;   /* DEBUG */
+		case 30: color = "\033[32m"; break;   /* INFO  */
+		case 40: color = "\033[35m"; break;   /* NOTICE*/
+		case 60: color = "\033[31m"; break;   /* ERROR */
+		default: color = "\033[0m";  break;   /* 其他 */
+	}
+	snprintf(a_level->str_color, sizeof(a_level->str_color),
+	         "%s%s\033[0m", color, a_level->str_uppercase);
 	return a_level;
 err:
 	zc_error("line[%s]", line);
